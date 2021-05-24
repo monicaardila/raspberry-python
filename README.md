@@ -1,0 +1,2 @@
+# raspberry-python
+comunicación bidireccional 
