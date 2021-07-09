@@ -17,4 +17,4 @@ CE                          GPIO 17                       11
 MOSI                        GPIO 10                       19
 MISO                        GPIO 9                        21
 SCK                         GPIO 23                       23
-https://repository.usta.edu.co/bitstream/handle/11634/12679/2018jeyssonlima.pdf?sequence=1&isAllowed=y
+https://www.framboise314.fr/installer-discord-sur-le-raspberry-pi/
