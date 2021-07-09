@@ -23,6 +23,7 @@ radio.openReadingPipe(1, pipes[1])
 radio.printDetails()
 radio.startListening()
 
+dato = []
 while True:
 
     while not radio.available(0):
@@ -39,5 +40,6 @@ while True:
         if (n >= 32 and n <= 126):
             string += chr(n)
     print("Our received message decodes to: {}".format(string))
-    radio.stopListening()
-    time.sleep(1)
+    
+    datos.append(string)
+    print(datos)
