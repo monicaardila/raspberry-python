@@ -18,3 +18,4 @@ MOSI                        GPIO 10                       19
 MISO                        GPIO 9                        21
 SCK                         GPIO 23                       23
 https://www.framboise314.fr/installer-discord-sur-le-raspberry-pi/
+https://tqb.li2.in/unit/send-data-to-a-realtime-database-using-google-firebase-and-raspberry-pi/
