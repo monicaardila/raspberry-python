@@ -13,24 +13,18 @@
    #define DHTTYPE DHT11   
    
 // Definimos variables    
-   int   Valor ;
+   int   hs ;
    int  h;
    int t;
    
-   char Stierra[50];
-   char Shumedad[50];
-   char Stemperatura[50];
-   char Scalor[50];
+   char variables[50];
    
 // Inicializamos el sensor DHT11
    DHT dht(DHTPIN, DHTTYPE);
 
    void setup(void){
    radio.begin();
-   radio.setPALevel(RF24_PA_MAX);
-   radio.setChannel(0x76);
-   radio.openWritingPipe(0xF0F0F0F0E1LL);
-   radio.enableDynamicPayloads();
+   radio.setPALevel(RF24_PA_MAX); 
    radio.powerUp();
    
    // Inicializamos comunicación serie
@@ -40,12 +34,12 @@
   dht.begin();
 }
 void loop(void){
- 
-    Valor = analogRead(0);
+    Serial.println("Sensor de Humedad valor:"); 
+    hs = analogRead(0);
     
-    if (Valor <= 500)  {sprintf(Stierra,"Sensor en el agua %d" , Valor ); } 
-    if ((Valor > 500) and (Valor <= 700)) {sprintf(Stierra,"Humedo, no regar %d", Valor);}
-    if (Valor > 700)  {sprintf(Stierra,"Seco, necesitas regar %d ", Valor);}
+    if (hs <= 500)  Serial.println("*Sensor en el agua");  
+    if ((hs > 500) and (hs <= 700)) Serial.println("*Humedo, no regar");
+    if (hs > 700)     Serial.println("*Seco, necesitas regar");
     
    // Leemos la humedad relativa
    h = dht.readHumidity();
@@ -57,15 +51,20 @@ void loop(void){
   
    // Calcular el índice de calor en grados centígrados
    int hic = dht.computeHeatIndex(t, h, false);
+  Serial.print("Humedad: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperatura: ");
+  Serial.print(t);
+  Serial.print(" *C ");
+  Serial.print("Índice de calor: ");
+  Serial.print(hic);
+  Serial.print(" *C ");
 
-   sprintf(Shumedad,"Humedad : %d ", h);
-   sprintf(Stemperatura,"Temperatura : %d ", t);
-   sprintf(Scalor," Indice de calor: %d ", hic);
+//sensor humedad dht ,temperatura,humedad suelindice de calor
+   sprintf(variables,"%d;%d;%d;%d",h,t,hs,hic);
 
-   radio.write(&Shumedad, sizeof(Shumedad));
-   radio.write(&Stemperatura, sizeof(Stemperatura));
-   radio.write(&Scalor, sizeof(Scalor));
-   radio.write(&Stierra, sizeof(Stierra));
+   radio.write(&variables, sizeof(variables));
    
    delay(1000);
 }
