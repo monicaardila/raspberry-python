@@ -24,7 +24,10 @@
 
    void setup(void){
    radio.begin();
-   radio.setPALevel(RF24_PA_MAX); 
+   radio.setPALevel(RF24_PA_MAX);
+   radio.setChannel(0x76);
+   radio.openWritingPipe(0xF0F0F0F0E1LL);
+   radio.enableDynamicPayloads();
    radio.powerUp();
    
    // Inicializamos comunicación serie
