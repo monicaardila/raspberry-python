@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from lib_nrf24 import NRF24
 import time
 import spidev
+import requests
 
 GPIO.setmode(GPIO.BCM)
 
@@ -23,23 +24,43 @@ radio.openReadingPipe(1, pipes[1])
 radio.printDetails()
 radio.startListening()
 
-dato = []
 while True:
-
+    
     while not radio.available(0):
         time.sleep(1/100)
-
+  
     receivedMessage = []
     radio.read(receivedMessage, radio.getDynamicPayloadSize())
-    print("Received: {}".format(receivedMessage))
+    print("Received: {}". format(receivedMessage))
+    
 
     print("Translating our received Message into unicode characters...")
     string = ""
-
+ 
     for n in receivedMessage:
         if (n >= 32 and n <= 126):
             string += chr(n)
-    print("Our received message decodes to: {}".format(string))
+    print("Our received message decodes to: {}". format(string))
+
+     #humedad
+    hum = string[0:2]
+    a = int (hum)
+    print ("Humedad  : {} % ". format(a))
+ 
+    #Temperatura
+    tem = string[3:5]
+    b = int (tem)
+    print ("Temperatura  : {} °C". format(b))
     
-    datos.append(string)
-    print(datos)
+    #Humeda suelo
+    humt = string[6:9]
+    c = int (humt)
+    print ("Humedad suelo  : {} % ". format(c))
+    
+   #Indice de calor
+    ic = string[10:12]
+    d = int (ic)
+    print ("Indice de calor  : {} °C". format(d))
+    
+    enviar = requests.get("https://api.thingspeak.com/update?api_key=2OICIUK7DRF7BA9S&field1="+str(a)+"&field2="+str(b)+"&field3="+str(c)+"&field4="+str(d))
+    time.sleep(5)
