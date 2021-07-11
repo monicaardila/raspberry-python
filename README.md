@@ -1,3 +1,4 @@
+# comunicacion bidireccional arduino a raspberry
 //Habilitamos SPI Y I2C
 sudo raspi-config
 advanced options----> SPI OK ---->I2C OK
@@ -24,8 +25,6 @@ cp lib_nrf24.py ~/Desktop/NRF24L01/
 cd
 cd Desktop
 git clone https://github.com/tmrh20/RF24
-
-# comunicacion bidireccional arduino a raspberry
 
 Conexión de Arduino con NRF24L01+
 VCC:                        3.3v
