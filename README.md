@@ -45,4 +45,4 @@ MISO                        GPIO 9                        21
 SCK                         GPIO 23                       23
 
 // Aplicativo thingspeak
-https://thingspeak.com/channels/1441287/private_show
+https://thingspeak.com/channels/1441287
